@@ -44,11 +44,11 @@ jobs:
 
           async function getInstallationToken() {
             const auth = createAppAuth({
-              appId: process.env.APP_ID,
-              privateKey: process.env.PRIVATE_KEY
+              appId: process.env.APP_ID_",
+              privateKey: process.env.PRIVATE_KEY_2
             });
 
-            const authentication = await auth({ type: 'installation', installationId: process.env.INSTALLATION_ID });
+            const authentication = await auth({ type: 'installation', installationId: process.env.INSTALLATION_ID_2 });
             const token = authentication.token;
 
             core.setOutput('token', token);
