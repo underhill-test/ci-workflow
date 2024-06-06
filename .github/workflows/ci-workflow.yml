@@ -33,9 +33,11 @@ jobs:
         script: |
           const prNumber = context.payload.pull_request.number;
           const prAuthor = context.payload.pull_request.user.login;
-          github.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
+          const repoOwner = context.repo.owner;
+          const repoName = context.repo.repo;
+          await github.rest.issues.createComment({
+            owner: repoOwner,
+            repo: repoName,
             issue_number: prNumber,
             body: `@${prAuthor}, the workflow has failed. Please check the logs for details.`
           });
