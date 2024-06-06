@@ -39,8 +39,8 @@ jobs:
         PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY_2 }}
       run: | 
         node -e "
-          const { createAppAuth } = require('@octokit/auth-app');
-          const core = require('@actions/core');
+          import { createAppAuth } from '@octokit/auth-app';
+          import * as core from '@actions/core';
 
           async function getInstallationToken() {
             const auth = createAppAuth({
