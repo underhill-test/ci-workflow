@@ -58,7 +58,7 @@ jobs:
     #     "
 
     - name: Notify author on failure
-      if: ${{ success() }}
+      if: ${{ failure() }}
       uses: actions/github-script@v6
       with:
         # github-token: ${{ steps.get_installation_token.outputs.token }}
