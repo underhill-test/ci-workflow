@@ -1,0 +1,41 @@
+name: Common CI Workflow
+
+on:
+  workflow_call:
+    inputs:
+      run-translations:
+        required: true
+        type: boolean
+      pack:
+        required: true
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run translations
+      if: ${{ inputs.run-translations }}
+      run: h5p run translations
+
+    - name: Pack
+      if: ${{ inputs.pack }}
+      run: h5p pack
+
+    - name: Notify author on failure
+      if: ${{ failure() }}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const prNumber = context.payload.pull_request.number;
+          const prAuthor = context.payload.pull_request.user.login;
+          github.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+            body: `@${prAuthor}, the workflow has failed. Please check the logs for details.`
+          });
