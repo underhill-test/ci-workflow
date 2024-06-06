@@ -44,7 +44,7 @@ jobs:
 
           async function getInstallationToken() {
             const auth = createAppAuth({
-              appId: process.env.APP_ID_2",
+              appId: process.env.APP_ID_2,
               privateKey: process.env.PRIVATE_KEY_2
             });
 
