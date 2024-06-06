@@ -32,12 +32,12 @@ jobs:
       run: echo "packing library"
 
     - name: Get Installation Access Token
-        id: get_installation_token
-        run: node .github/workflows/get-installation-token.mjs
-        env:
-          APP_ID: ${{ secrets.APP_ID_2 }}
-          INSTALLATION_ID: ${{ secrets.INSTALLATION_ID_2 }}
-          PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY_2 }}
+      id: get_installation_token
+      run: node .github/workflows/get-installation-token.mjs
+      env:
+        APP_ID: ${{ secrets.APP_ID_2 }}
+        INSTALLATION_ID: ${{ secrets.INSTALLATION_ID_2 }}
+        PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY_2 }}
 
     - name: Notify author on failure
       if: ${{ failure() }}
