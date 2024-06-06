@@ -27,5 +27,5 @@ jobs:
       run: echo "packing library"
 
     - name: Set failure message
-      if: ${{ failure() }}
+      if: ${{ success() }}
       run: echo "{failure={true}}" >> $GITHUB_OUTPUT
