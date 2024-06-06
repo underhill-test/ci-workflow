@@ -28,4 +28,4 @@ jobs:
 
     - name: Set failure message
       if: ${{ success() }}
-      run: echo "{failure={true}}" >> $GITHUB_OUTPUT
+      run: echo "failure=true" >> $GITHUB_OUTPUT
