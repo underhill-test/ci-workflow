@@ -21,6 +21,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    
+    - name: Install dependencies
+        run: | 
+          npm install @octokit/auth-app
+          npm install @actions/core
 
     - name: Run translations
       if: ${{ inputs.run-translations }}
@@ -30,11 +35,19 @@ jobs:
       if: ${{ inputs.pack }}
       run: echo "packing library"
 
+    - name: Get Installation Access Token
+        id: get_installation_token
+        run: node .github/workflows/get-installation-token.mjs
+        env:
+          APP_ID: ${{ secrets.APP_ID_2 }}
+          INSTALLATION_ID: ${{ secrets.INSTALLATION_ID_2 }}
+          PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY_2 }}
+
     - name: Notify author on failure
       if: ${{ failure() }}
       uses: actions/github-script@v6
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.steps.get_installation_token.outputs.token }}
         script: |
           const prNumber = context.payload.pull_request.number;
           const prAuthor = context.payload.pull_request.user.login;
