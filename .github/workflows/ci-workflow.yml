@@ -10,6 +10,10 @@ on:
         required: true
         type: boolean
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,19 +30,19 @@ jobs:
       if: ${{ inputs.pack }}
       run: echo "packing library"
 
-    # - name: Notify author on failure
-    #   if: ${{ failure() }}
-    #   uses: actions/github-script@v6
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     script: |
-    #       const prNumber = context.payload.pull_request.number;
-    #       const prAuthor = context.payload.pull_request.user.login;
-    #       const repoOwner = context.repo.owner;
-    #       const repoName = context.repo.repo;
-    #       await github.rest.issues.createComment({
-    #         owner: repoOwner,
-    #         repo: repoName,
-    #         issue_number: prNumber,
-    #         body: `@${prAuthor}, the workflow has failed. Please check the logs for details.`
-    #       });
+    - name: Notify author on failure
+      if: ${{ failure() }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const prNumber = context.payload.pull_request.number;
+          const prAuthor = context.payload.pull_request.user.login;
+          const repoOwner = context.repo.owner;
+          const repoName = context.repo.repo;
+          await github.rest.issues.createComment({
+            owner: repoOwner,
+            repo: repoName,
+            issue_number: prNumber,
+            body: `@${prAuthor}, the workflow has failed. Please check the logs for details.`
+          });
