@@ -17,11 +17,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    
-    # - name: Install dependencies
-    #   run: | 
-    #     npm install @octokit/auth-app
-    #     npm install @actions/core
 
     - name: Run translations
       if: ${{ inputs.run-translations }}
@@ -31,45 +26,6 @@ jobs:
       if: ${{ inputs.pack }}
       run: echo "packing library"
 
-    # - name: Get Installation Access Token
-    #   id: get_installation_token
-    #   env:
-    #     APP_ID: ${{ secrets.APP_ID }}
-    #     INSTALLATION_ID: ${{ secrets.INSTALLATION_ID }}
-    #     PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
-    #   run: | 
-    #     node --input-type=module -e "
-    #       import { createAppAuth } from '@octokit/auth-app';
-    #       import * as core from '@actions/core';
-
-    #       async function getInstallationToken() {
-    #         const auth = createAppAuth({
-    #           appId: process.env.APP_ID,
-    #           privateKey: process.env.PRIVATE_KEY
-    #         });
-
-    #         const authentication = await auth({ type: 'installation', installationId: process.env.INSTALLATION_ID });
-    #         const token = authentication.token;
-
-    #         core.setOutput('token', token);
-    #       }
-
-    #       getInstallationToken();
-    #     "
-
-    # - name: Notify author on failure
-    #   if: ${{ success() }}
-    #   uses: actions/github-script@v6
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     script: |
-    #       const prNumber = context.payload.pull_request.number;
-    #       const prAuthor = context.payload.pull_request.user.login;
-    #       const repoOwner = context.repo.owner;
-    #       const repoName = context.repo.repo;
-    #       await github.rest.issues.createComment({
-    #         owner: repoOwner,
-    #         repo: repoName,
-    #         issue_number: prNumber,
-    #         body: `@${prAuthor}, the workflow has failed. Please check the logs for details.`
-    #       });
+    - name: Set failure message
+      if: ${{ failure() }}
+      run: echo "{failure={true}}" >> $GITHUB_OUTPUT
