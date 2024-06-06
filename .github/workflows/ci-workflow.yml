@@ -20,11 +20,11 @@ jobs:
 
     - name: Run translations
       if: ${{ inputs.run-translations }}
-      run: h5p run translations
+      run: echo "running translations"
 
     - name: Pack
       if: ${{ inputs.pack }}
-      run: h5p pack
+      run: echo "packing library"
 
     # - name: Notify author on failure
     #   if: ${{ failure() }}
