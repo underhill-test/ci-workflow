@@ -18,10 +18,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     
-    - name: Install dependencies
-      run: | 
-        npm install @octokit/auth-app
-        npm install @actions/core
+    # - name: Install dependencies
+    #   run: | 
+    #     npm install @octokit/auth-app
+    #     npm install @actions/core
 
     - name: Run translations
       if: ${{ inputs.run-translations }}
@@ -57,20 +57,19 @@ jobs:
     #       getInstallationToken();
     #     "
 
-    - name: Notify author on failure
-      if: ${{ success() }}
-      uses: actions/github-script@v6
-      with:
-        # github-token: ${{ steps.get_installation_token.outputs.token }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const prNumber = context.payload.pull_request.number;
-          const prAuthor = context.payload.pull_request.user.login;
-          const repoOwner = context.repo.owner;
-          const repoName = context.repo.repo;
-          await github.rest.issues.createComment({
-            owner: repoOwner,
-            repo: repoName,
-            issue_number: prNumber,
-            body: `@${prAuthor}, the workflow has failed. Please check the logs for details.`
-          });
+    # - name: Notify author on failure
+    #   if: ${{ success() }}
+    #   uses: actions/github-script@v6
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     script: |
+    #       const prNumber = context.payload.pull_request.number;
+    #       const prAuthor = context.payload.pull_request.user.login;
+    #       const repoOwner = context.repo.owner;
+    #       const repoName = context.repo.repo;
+    #       await github.rest.issues.createComment({
+    #         owner: repoOwner,
+    #         repo: repoName,
+    #         issue_number: prNumber,
+    #         body: `@${prAuthor}, the workflow has failed. Please check the logs for details.`
+    #       });
