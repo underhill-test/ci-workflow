@@ -10,10 +10,6 @@ on:
         required: true
         type: boolean
 
-permissions:
-  contents: read
-  issues: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
