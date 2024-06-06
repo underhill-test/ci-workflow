@@ -26,3 +26,6 @@ jobs:
       if: ${{ inputs.pack }}
       run: echo "packing library"
 
+    - name: Try to fail
+      run: exit 1
+
