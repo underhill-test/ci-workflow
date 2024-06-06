@@ -9,10 +9,16 @@ on:
       pack:
         required: true
         type: boolean
+    outputs:
+      failure: 
+        description: "status of reusable workflow"
+        value: ${{ jobs.reusable-workflow.outputs.failure-notice }}
 
 jobs:
-  build:
+  reusable-workflow:
     runs-on: ubuntu-latest
+    outputs:
+      failure-notice: ${{ steps.status.outputs.failure }}
 
     steps:
     - name: Checkout repository
@@ -27,5 +33,6 @@ jobs:
       run: echo "packing library"
 
     - name: Set failure message
+      id: status
       if: ${{ success() }}
       run: echo "failure=true" >> $GITHUB_OUTPUT
