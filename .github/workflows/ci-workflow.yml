@@ -38,7 +38,6 @@ jobs:
         INSTALLATION_ID: ${{ secrets.INSTALLATION_ID_2 }}
         PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY_2 }}
       run: | 
-        |
         node -e "
           const { createAppAuth } = require('@octokit/auth-app');
           const core = require('@actions/core');
