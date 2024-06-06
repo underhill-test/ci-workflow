@@ -19,9 +19,9 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Install dependencies
-        run: | 
-          npm install @octokit/auth-app
-          npm install @actions/core
+      run: | 
+        npm install @octokit/auth-app
+        npm install @actions/core
 
     - name: Run translations
       if: ${{ inputs.run-translations }}
