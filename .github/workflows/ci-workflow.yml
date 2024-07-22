@@ -31,3 +31,4 @@ jobs:
           libDir=${PWD##*/}
           cd ..
           h5p utils validate "${libDir}"
+          echo "Exit code: $?"
