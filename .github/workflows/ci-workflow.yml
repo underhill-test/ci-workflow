@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 20
       - name: Clone h5p-cli repository
-        run: git clone https://github.com/h5p/h5p-cli.git
+        run: git clone --branch JI-6502-lang-compare-semantics https://github.com/h5p/h5p-cli.git
       - name: Install h5p-cli from specific branch
         run: |
           cd h5p-cli
