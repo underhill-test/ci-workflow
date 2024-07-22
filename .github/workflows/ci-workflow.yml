@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 20
       - name: Clone h5p-cli repository
-        run: git clone --branch fix/JI-6520-improve-empty-object-filtering https://github.com/h5p/h5p-cli.git
+        run: git clone https://github.com/h5p/h5p-cli.git
       - name: Install h5p-cli from specific branch
         run: |
           cd h5p-cli
