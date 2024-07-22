@@ -24,4 +24,4 @@ jobs:
         run: |
           libDir=${PWD##*/}
           cd ..
-          npx h5p-cli utils validate "${libDir}"
+          ./node_modules/.bin/h5p utils validate "${libDir}"
