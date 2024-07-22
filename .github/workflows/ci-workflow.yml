@@ -18,10 +18,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-      - name: Move to parent directory and install h5p-cli
+      - name: Clone h5p-cli repository
+        run: git clone --branch fix/JI-6520-improve-empty-object-filtering https://github.com/h5p/h5p-cli.git
+      - name: Install h5p-cli from specific branch
         run: |
+          cd h5p-cli
+          npm install
           cd ..
-          npm install h5p-cli
+          npm install -g ./h5p-cli
       - name: Validate translations
         run: |
           libDir=${PWD##*/}
