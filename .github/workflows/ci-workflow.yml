@@ -28,4 +28,4 @@ jobs:
         run: |
           libDir=${PWD##*/}
           cd ..
-          h5p utils validate "${libDir}"
+          ./node_modules/.bin/h5p utils validate "${libDir}"
