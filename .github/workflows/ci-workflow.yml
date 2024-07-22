@@ -1,4 +1,4 @@
-name: Common CI Workflow
+name: Reusable CI Workflow
 
 on:
   workflow_call:
@@ -6,26 +6,22 @@ on:
       run-translations:
         required: true
         type: boolean
-      pack:
-        required: true
-        type: boolean
 
 jobs:
-  reusable-workflow:
+  Validate-translations:
     runs-on: ubuntu-latest
-
+    if: ${{ inputs.run-translations }}
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Run translations
-      if: ${{ inputs.run-translations }}
-      run: echo "running translations"
-
-    - name: Pack
-      if: ${{ inputs.pack }}
-      run: echo "packing library"
-
-    - name: Try to fail
-      run: exit 1
-
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install h5p cli
+        run: npm install h5p-cli
+      - name: Validate translations
+        run: |
+          libDir=${PWD##*/}
+          cd ..
+          h5p utils validate "${libDir}"
