@@ -21,7 +21,12 @@ jobs:
       - name: Install h5p cli
         run: npm install h5p-cli
       - name: Validate translations
+      - name: Move to parent directory and install h5p-cli
+        run: |
+          cd ..
+          npm install h5p-cli
+      - name: Validate translations
         run: |
           libDir=${PWD##*/}
           cd ..
-          ./node_modules/.bin/h5p utils validate "${libDir}"
+          h5p utils validate "${libDir}"
